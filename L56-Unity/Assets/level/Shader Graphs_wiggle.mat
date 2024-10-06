@@ -56,6 +56,6 @@ Material:
     m_Floats:
     - _resolution: 50
     - _speed: 2.64
-    - _strength: 0.05
+    - _strength: 0.08
     m_Colors: []
   m_BuildTextureStacks: []

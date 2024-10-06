@@ -23,18 +23,9 @@ public class PlayerController : MonoBehaviour
     private float jumpTimeCounter; // Zählt die Zeit, wie lange der Sprung andauert
     private bool isJumping; // Um zu tracken, ob der Spieler springt
 
-    private bool isGrounded;
-
-    public LayerMask wallLayer;  // Schicht für den Boden und Wände
-    public float wallJumpForceX = 5f;  // Seitliche Kraft beim Walljump
-    public float wallJumpForceY = 7f;  // Vertikale Kraft beim Walljump
-    public bool isTouchingWall;  // Ist der Spieler an einer Wand?
-
-    public Transform wallCheck;  // Ein Punkt am Spieler, um Wände zu erkennen
-    public float wallCheckDistance = 0.5f;  // Wie weit der Spieler nach Wänden sucht
-
-
-
+    public bool isGrounded;
+   
+  
     void Awake()
     {
         // Input Actions initialisieren
@@ -87,13 +78,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, 0); // Erste Sprungkraft
             isGrounded = false;
         }
-        else if (isTouchingWall)
-        {
-            // Walljump-Logik
-            rb.velocity = new Vector3(-Mathf.Sign(moveInput.x) * wallJumpForceX, wallJumpForceY, 0);  // Walljump-Kraft in beide Richtungen
-            isJumping = true;
-            isTouchingWall = false;  // Setzt den Wallkontakt zurück
-        }
+        
     }
 
     // Wird aufgerufen, wenn die Sprungtaste losgelassen wird
@@ -109,8 +94,7 @@ public class PlayerController : MonoBehaviour
         //float moveSpeedModifier = isGrounded ? 1f : 0.5f; // Verlangsamt die Bewegung in der Luft
         rb.velocity = new Vector3(moveInput.x * moveSpeed /* moveSpeedModifier*/, rb.velocity.y, 0);
 
-        // Checke, ob der Spieler an einer Wand ist
-        isTouchingWall = Physics.Raycast(wallCheck.position, Vector3.right * Mathf.Sign(moveInput.x), wallCheckDistance, wallLayer);
+        
         // Berechne die aktuelle Sprunghöhe
         float currentJumpHeight = transform.position.y - initialPlayerY;
 
@@ -148,5 +132,6 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
+
     }
 }
